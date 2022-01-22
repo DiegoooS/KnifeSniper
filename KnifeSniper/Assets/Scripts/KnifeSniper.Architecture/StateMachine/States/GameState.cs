@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using KnifeSniper.UI;
 using KnifeSniper.Input;
+using KnifeSniper.Generation;
 
 namespace KnifeSniper.Architecture
 {
@@ -10,11 +11,13 @@ namespace KnifeSniper.Architecture
     {
         private GameView gameView;
         private InputSystem inputSystem;
+        private LevelGenerator levelGenerator;
 
-        public GameState(InputSystem inputSystem, GameView gameView)
+        public GameState(LevelGenerator levelGenerator, InputSystem inputSystem, GameView gameView)
         {
             this.inputSystem = inputSystem;
             this.gameView = gameView;
+            this.levelGenerator = levelGenerator;
         }
 
         public override void InitState()
@@ -24,6 +27,8 @@ namespace KnifeSniper.Architecture
             if (gameView != null)
                 gameView.ShowView();
 
+            levelGenerator.SpawnShield();
+            levelGenerator.SpawnKnife();
             inputSystem.AddListener(PrintDebug);
         }
 

@@ -4,6 +4,7 @@ using UnityEngine;
 using KnifeSniper.UI;
 using UnityEngine.Events;
 using KnifeSniper.Input;
+using KnifeSniper.Generation;
 
 namespace KnifeSniper.Architecture
 {
@@ -22,6 +23,9 @@ namespace KnifeSniper.Architecture
         private BaseState currentlyActiveState;
 
         private InputSystem inputSystem;
+
+        [SerializeField]
+        private LevelGenerator levelGenerator;
 
         private UnityAction transitionToGameState;
 
@@ -55,7 +59,7 @@ namespace KnifeSniper.Architecture
         private void CreateStates()
         {
             menuState = new MenuState(transitionToGameState, menuView);
-            gameState = new GameState(inputSystem, gameView);
+            gameState = new GameState(levelGenerator, inputSystem, gameView);
         }
 
         private void CreateTransitions()
