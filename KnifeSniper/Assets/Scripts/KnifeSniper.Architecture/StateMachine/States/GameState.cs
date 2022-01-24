@@ -4,6 +4,7 @@ using UnityEngine;
 using KnifeSniper.UI;
 using KnifeSniper.Input;
 using KnifeSniper.Generation;
+using KnifeSniper.CoreGameplay;
 
 namespace KnifeSniper.Architecture
 {
@@ -12,12 +13,14 @@ namespace KnifeSniper.Architecture
         private GameView gameView;
         private InputSystem inputSystem;
         private LevelGenerator levelGenerator;
+        private ShieldMovementController shieldMovementController;
 
-        public GameState(LevelGenerator levelGenerator, InputSystem inputSystem, GameView gameView)
+        public GameState(ShieldMovementController shieldMovementController, LevelGenerator levelGenerator, InputSystem inputSystem, GameView gameView)
         {
             this.inputSystem = inputSystem;
             this.gameView = gameView;
             this.levelGenerator = levelGenerator;
+            this.shieldMovementController = shieldMovementController;
         }
 
         public override void InitState()
@@ -27,7 +30,9 @@ namespace KnifeSniper.Architecture
             if (gameView != null)
                 gameView.ShowView();
 
-            levelGenerator.SpawnShield();
+            var startShield = levelGenerator.SpawnShield();
+            shieldMovementController.InitializeShield(startShield);
+
             levelGenerator.SpawnKnife();
             inputSystem.AddListener(PrintDebug);
         }
@@ -35,6 +40,7 @@ namespace KnifeSniper.Architecture
         public override void UpdateState()
         {
             inputSystem.UpdateSystem();
+            shieldMovementController.UpdateController();
         }
 
         public override void DestroyState()
