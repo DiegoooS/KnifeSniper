@@ -6,6 +6,12 @@ namespace KnifeSniper.Generation
 {
     public abstract class BaseKnife : MonoBehaviour
     {
+        [SerializeField]
+        protected Rigidbody2D rigidBody;
 
+        [SerializeField]
+        protected float speed;
+
+        public abstract void ThrowKnife();
     } 
 }

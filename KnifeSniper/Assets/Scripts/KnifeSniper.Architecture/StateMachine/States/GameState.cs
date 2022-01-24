@@ -14,13 +14,20 @@ namespace KnifeSniper.Architecture
         private InputSystem inputSystem;
         private LevelGenerator levelGenerator;
         private ShieldMovementController shieldMovementController;
+        private KnifeThrower knifeThrower;
 
-        public GameState(ShieldMovementController shieldMovementController, LevelGenerator levelGenerator, InputSystem inputSystem, GameView gameView)
+        public GameState(KnifeThrower knifeThrower, 
+            ShieldMovementController shieldMovementController, 
+            LevelGenerator levelGenerator,
+            InputSystem inputSystem, 
+            GameView gameView
+            )
         {
             this.inputSystem = inputSystem;
             this.gameView = gameView;
             this.levelGenerator = levelGenerator;
             this.shieldMovementController = shieldMovementController;
+            this.knifeThrower = knifeThrower;
         }
 
         public override void InitState()
@@ -33,8 +40,8 @@ namespace KnifeSniper.Architecture
             var startShield = levelGenerator.SpawnShield();
             shieldMovementController.InitializeShield(startShield);
 
-            levelGenerator.SpawnKnife();
-            inputSystem.AddListener(PrintDebug);
+            var newKnife = levelGenerator.SpawnKnife();
+            inputSystem.AddListener(newKnife.ThrowKnife);
         }
 
         public override void UpdateState()
@@ -49,11 +56,6 @@ namespace KnifeSniper.Architecture
                 gameView.HideView();
 
             inputSystem.RemoveAllListeners();
-        }
-
-        private void PrintDebug()
-        {
-            Debug.Log("Pressed");
         }
     } 
 }

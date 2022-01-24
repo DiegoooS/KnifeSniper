@@ -38,8 +38,6 @@ namespace KnifeSniper.Generation
 
             var finalAngle = Vector3.Lerp(startAngle, endAngle, currentNormalizedTime);
             transform.rotation = Quaternion.Euler(finalAngle);
-
-            Debug.Log(currentNormalizedTime);
         }
 
         public override void Initialize()

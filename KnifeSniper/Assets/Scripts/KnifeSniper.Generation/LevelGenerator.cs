@@ -37,11 +37,13 @@ namespace KnifeSniper.Generation
             return shieldObj;
         }
 
-        public void SpawnKnife()
+        public BaseKnife SpawnKnife()
         {
             var knifeObj = Instantiate(knifePrefab, knifePos.position, knifePos.rotation);
 
             knifeObj.transform.SetParent(knifeRoot);
+
+            return knifeObj;
         }
     } 
 }

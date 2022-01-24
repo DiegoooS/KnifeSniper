@@ -25,6 +25,7 @@ namespace KnifeSniper.Architecture
 
         private InputSystem inputSystem;
         private ShieldMovementController shieldMovementController;
+        private KnifeThrower knifeThrower;
 
         [SerializeField]
         private LevelGenerator levelGenerator;
@@ -38,6 +39,7 @@ namespace KnifeSniper.Architecture
             CreateTransitions();
             CreateShieldMovement();
             CreateStates();
+            CreateKnifeThrower();
 
             ChangeState(menuState);
         }
@@ -62,7 +64,7 @@ namespace KnifeSniper.Architecture
         private void CreateStates()
         {
             menuState = new MenuState(transitionToGameState, menuView);
-            gameState = new GameState(shieldMovementController, levelGenerator, inputSystem, gameView);
+            gameState = new GameState(knifeThrower, shieldMovementController, levelGenerator, inputSystem, gameView);
         }
 
         private void CreateTransitions()
@@ -73,6 +75,11 @@ namespace KnifeSniper.Architecture
         private void CreateShieldMovement()
         {
             shieldMovementController = new ShieldMovementController();
+        }
+
+        private void CreateKnifeThrower()
+        {
+            knifeThrower = new KnifeThrower();
         }
     } 
 }
