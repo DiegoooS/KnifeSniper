@@ -37,11 +37,8 @@ namespace KnifeSniper.Architecture
             if (gameView != null)
                 gameView.ShowView();
 
-            var startShield = levelGenerator.SpawnShield();
-            shieldMovementController.InitializeShield(startShield);
-
-            var newKnife = levelGenerator.SpawnKnife();
-            inputSystem.AddListener(newKnife.ThrowKnife);
+            CreateNewShield();
+            CreateNewKnife();
         }
 
         public override void UpdateState()
@@ -56,6 +53,18 @@ namespace KnifeSniper.Architecture
                 gameView.HideView();
 
             inputSystem.RemoveAllListeners();
+        }
+
+        private void CreateNewShield()
+        {
+            var startShield = levelGenerator.SpawnShield();
+            shieldMovementController.InitializeShield(startShield);
+        }
+
+        private void CreateNewKnife()
+        {
+            var newKnife = levelGenerator.SpawnKnife();
+            inputSystem.AddListener(newKnife.ThrowKnife);
         }
     } 
 }
