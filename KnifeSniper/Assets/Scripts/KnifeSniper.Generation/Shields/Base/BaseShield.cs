@@ -35,6 +35,8 @@ namespace KnifeSniper.Generation
             }
 
             knifesInShield.Clear();
+            onShieldHit = null;
+            onWin = null;
 
             Destroy(this.gameObject);
         }
@@ -51,8 +53,6 @@ namespace KnifeSniper.Generation
             onShieldHit.Invoke();
             if (knifesToWin == knifesInShield.Count)
             {
-                Dispose();
-                Debug.Log("Win!");
                 onWin.Invoke();
             }
             

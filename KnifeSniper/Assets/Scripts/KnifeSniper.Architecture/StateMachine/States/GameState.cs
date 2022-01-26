@@ -5,6 +5,7 @@ using KnifeSniper.UI;
 using KnifeSniper.Input;
 using KnifeSniper.Generation;
 using KnifeSniper.CoreGameplay;
+using KnifeSniper.AdditionalSystems;
 
 namespace KnifeSniper.Architecture
 {
@@ -15,14 +16,18 @@ namespace KnifeSniper.Architecture
         private LevelGenerator levelGenerator;
         private ShieldMovementController shieldMovementController;
         private KnifeThrower knifeThrower;
+        private ScoreSystem scoreSystem;
 
-        public GameState(KnifeThrower knifeThrower, 
+        public GameState(
+            ScoreSystem scoreSystem,
+            KnifeThrower knifeThrower, 
             ShieldMovementController shieldMovementController, 
             LevelGenerator levelGenerator,
             InputSystem inputSystem, 
             GameView gameView
             )
         {
+            this.scoreSystem = scoreSystem;
             this.inputSystem = inputSystem;
             this.gameView = gameView;
             this.levelGenerator = levelGenerator;
@@ -39,6 +44,7 @@ namespace KnifeSniper.Architecture
 
             CreateNewShield();
             CreateNewKnife();
+            SetScoreText();
             inputSystem.AddListener(knifeThrower.Throw);
         }
 
@@ -59,13 +65,25 @@ namespace KnifeSniper.Architecture
         private void CreateNewShield()
         {
             var startShield = levelGenerator.SpawnShield();
-            shieldMovementController.InitializeShield(startShield, CreateNewKnife, CreateNewShield);
+            shieldMovementController.InitializeShield(startShield, OnShieldHit, CreateNewShield);
+        }
+
+        private void OnShieldHit()
+        {
+            CreateNewKnife();
+            scoreSystem.AddScore();
+            SetScoreText();
         }
 
         private void CreateNewKnife()
         {
             var newKnife = levelGenerator.SpawnKnife();
             knifeThrower.SetKnife(newKnife);
+        }
+
+        private void SetScoreText()
+        {
+            gameView.ScoreText.text = scoreSystem.GetScore().ToString();
         }
     } 
 }

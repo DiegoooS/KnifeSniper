@@ -12,7 +12,10 @@ namespace KnifeSniper.CoreGameplay
 
         public void InitializeShield(BaseShield newShield, UnityAction onShieldHitCallback, UnityAction onWinCallback)
         {
-            // !!! HEY YOU - Destroy old shield
+            if (currentlyActiveShield != null)
+            {
+                currentlyActiveShield.Dispose();
+            }
 
             currentlyActiveShield = newShield;
             currentlyActiveShield.Initialize(onShieldHitCallback, onWinCallback);

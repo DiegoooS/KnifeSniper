@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using KnifeSniper.Input;
 using KnifeSniper.Generation;
 using KnifeSniper.CoreGameplay;
+using KnifeSniper.AdditionalSystems;
 
 namespace KnifeSniper.Architecture
 {
@@ -26,6 +27,7 @@ namespace KnifeSniper.Architecture
         private InputSystem inputSystem;
         private ShieldMovementController shieldMovementController;
         private KnifeThrower knifeThrower;
+        private ScoreSystem scoreSystem;
 
         [SerializeField]
         private LevelGenerator levelGenerator;
@@ -39,6 +41,7 @@ namespace KnifeSniper.Architecture
             CreateTransitions();
             CreateShieldMovement();
             CreateKnifeThrower();
+            CreateScoreSystem();
             CreateStates();
 
             ChangeState(menuState);
@@ -64,7 +67,7 @@ namespace KnifeSniper.Architecture
         private void CreateStates()
         {
             menuState = new MenuState(transitionToGameState, menuView);
-            gameState = new GameState(knifeThrower, shieldMovementController, levelGenerator, inputSystem, gameView);
+            gameState = new GameState(scoreSystem, knifeThrower, shieldMovementController, levelGenerator, inputSystem, gameView);
         }
 
         private void CreateTransitions()
@@ -80,6 +83,11 @@ namespace KnifeSniper.Architecture
         private void CreateKnifeThrower()
         {
             knifeThrower = new KnifeThrower();
+        }
+
+        private void CreateScoreSystem()
+        {
+            scoreSystem = new ScoreSystem();
         }
     } 
 }
