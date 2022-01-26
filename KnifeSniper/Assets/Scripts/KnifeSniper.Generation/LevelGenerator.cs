@@ -27,7 +27,6 @@ namespace KnifeSniper.Generation
         private Transform shieldRoot;
 
         
-
         public BaseShield SpawnShield()
         {
             var shieldObj = Instantiate(shieldPrefab, shieldPos.position, shieldPos.rotation);

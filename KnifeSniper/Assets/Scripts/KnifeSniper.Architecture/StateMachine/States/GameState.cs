@@ -44,7 +44,7 @@ namespace KnifeSniper.Architecture
 
             CreateNewShield();
             CreateNewKnife();
-            SetScoreText();
+            gameView.SetScoreText(scoreSystem.GetScore());
             inputSystem.AddListener(knifeThrower.Throw);
         }
 
@@ -72,18 +72,13 @@ namespace KnifeSniper.Architecture
         {
             CreateNewKnife();
             scoreSystem.AddScore();
-            SetScoreText();
+            gameView.SetScoreText(scoreSystem.GetScore());
         }
 
         private void CreateNewKnife()
         {
             var newKnife = levelGenerator.SpawnKnife();
             knifeThrower.SetKnife(newKnife);
-        }
-
-        private void SetScoreText()
-        {
-            gameView.ScoreText.text = scoreSystem.GetScore().ToString();
         }
     } 
 }
