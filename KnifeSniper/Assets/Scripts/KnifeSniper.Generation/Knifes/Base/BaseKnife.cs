@@ -9,6 +9,8 @@ namespace KnifeSniper.Generation
         [SerializeField]
         protected Rigidbody2D rigidBody;
 
+        public Rigidbody2D RigidBody => rigidBody;
+
         [SerializeField]
         protected float speed;
 

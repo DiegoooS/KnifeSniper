@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace KnifeSniper.Generation
 {
@@ -40,8 +41,10 @@ namespace KnifeSniper.Generation
             transform.rotation = Quaternion.Euler(finalAngle);
         }
 
-        public override void Initialize()
+        public override void Initialize(UnityAction onShieldHitCallback, UnityAction onWinCallback)
         {
+            base.Initialize(onShieldHitCallback, onWinCallback);
+
             currentStep = 0;
             var currentStepData = shieldMovementStep[currentStep];
 

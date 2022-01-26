@@ -58,7 +58,7 @@ namespace KnifeSniper.Architecture
         private void CreateNewShield()
         {
             var startShield = levelGenerator.SpawnShield();
-            shieldMovementController.InitializeShield(startShield);
+            shieldMovementController.InitializeShield(startShield, CreateNewKnife, CreateNewShield);
         }
 
         private void CreateNewKnife()

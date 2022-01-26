@@ -913,7 +913,7 @@ MonoBehaviour:
   knifePrefab: {fileID: -3508662977784572134, guid: f403ca05b1ee863428b724824070b1dc, type: 3}
   shieldPos: {fileID: 762922195}
   shieldPrefab: {fileID: 757184664850939802, guid: b2c590d1a7a536744a68c91e0ceb25fd, type: 3}
-  shieldRoot: {fileID: 1797356899}
+  shieldRoot: {fileID: 55912664}
 --- !u!1 &166882492
 GameObject:
   m_ObjectHideFlags: 0

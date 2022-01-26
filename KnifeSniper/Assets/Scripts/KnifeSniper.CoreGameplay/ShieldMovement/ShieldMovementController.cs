@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using KnifeSniper.Generation;
+using UnityEngine.Events;
 
 namespace KnifeSniper.CoreGameplay
 {
@@ -9,12 +10,12 @@ namespace KnifeSniper.CoreGameplay
     {
         private BaseShield currentlyActiveShield;
 
-        public void InitializeShield(BaseShield newShield)
+        public void InitializeShield(BaseShield newShield, UnityAction onShieldHitCallback, UnityAction onWinCallback)
         {
             // !!! HEY YOU - Destroy old shield
 
             currentlyActiveShield = newShield;
-            currentlyActiveShield.Initialize();
+            currentlyActiveShield.Initialize(onShieldHitCallback, onWinCallback);
         }
 
         public void UpdateController()
