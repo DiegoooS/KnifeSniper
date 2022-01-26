@@ -25,6 +25,20 @@ namespace KnifeSniper.Generation
             onWin = onWinCallback;
         }
 
+        public virtual void Dispose()
+        {
+            for (int i = 0; i < knifesInShield.Count - 1; i++)
+            {
+                BaseKnife knife = knifesInShield[i];
+                Destroy(knife.gameObject);
+                knifesInShield.Remove(knife);
+            }
+
+            knifesInShield.Clear();
+
+            Destroy(this.gameObject);
+        }
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             var knife = collision.GetComponentInParent<BaseKnife>();
@@ -37,6 +51,7 @@ namespace KnifeSniper.Generation
             onShieldHit.Invoke();
             if (knifesToWin == knifesInShield.Count)
             {
+                Dispose();
                 Debug.Log("Win!");
                 onWin.Invoke();
             }

@@ -39,6 +39,7 @@ namespace KnifeSniper.Architecture
 
             CreateNewShield();
             CreateNewKnife();
+            inputSystem.AddListener(knifeThrower.Throw);
         }
 
         public override void UpdateState()
@@ -64,7 +65,7 @@ namespace KnifeSniper.Architecture
         private void CreateNewKnife()
         {
             var newKnife = levelGenerator.SpawnKnife();
-            inputSystem.AddListener(newKnife.ThrowKnife);
+            knifeThrower.SetKnife(newKnife);
         }
     } 
 }

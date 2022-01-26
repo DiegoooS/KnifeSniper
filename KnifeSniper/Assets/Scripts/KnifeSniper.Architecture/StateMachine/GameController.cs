@@ -35,11 +35,11 @@ namespace KnifeSniper.Architecture
         private void Start()
         {
             inputSystem = new InputSystem();
-
+    
             CreateTransitions();
             CreateShieldMovement();
-            CreateStates();
             CreateKnifeThrower();
+            CreateStates();
 
             ChangeState(menuState);
         }

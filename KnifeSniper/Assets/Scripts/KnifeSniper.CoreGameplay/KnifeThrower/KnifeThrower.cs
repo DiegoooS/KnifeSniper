@@ -17,7 +17,9 @@ namespace KnifeSniper.CoreGameplay
 
         public void Throw()
         {
-            knifeToThrow?.ThrowKnife();
+            if (knifeToThrow != null)
+                knifeToThrow.ThrowKnife();
+
             knifeToThrow = null;
         }
     }
