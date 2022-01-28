@@ -7,15 +7,22 @@ namespace KnifeSniper.AdditionalSystems
     public class ScoreSystem
     {
         private int score;
+        private int bestScore;
 
         public void AddScore()
         {
             score++;
+            bestScore = score > bestScore ? score : bestScore;
         }
 
         public int GetScore()
         {
             return score;
+        }
+
+        public int GetBestScore()
+        {
+            return bestScore;
         }
     } 
 }

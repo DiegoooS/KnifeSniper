@@ -34,17 +34,17 @@ namespace KnifeSniper.UI
             scoreText.text = currentScore.ToString();
         }
 
-        public void SetCurrentLevelUI(int currentLevel)
+        public void SetCurrentLevelUI(int currentLevel, int currentStage)
         {
             levelText.text = currentLevel.ToString();
 
-            stageImage1.color = new Color(200f, 167f, 82f);
+            Debug.Log(currentStage);
 
-            // Do Wyjebania :(
-            stageImage2.color = currentLevel / 2 == 1 ? new Color(200f, 167f, 82f) : Color.white;
-            stageImage3.color = currentLevel / 3 == 1 ? new Color(200f, 167f, 82f) : Color.white;
-            stageImage4.color = currentLevel / 4 == 1 ? new Color(200f, 167f, 82f) : Color.white;
-            stageImageBoss.color = currentLevel / 5 == 1 ? new Color(200f, 167f, 82f) : Color.white;
+            stageImage1.color = Color.yellow;
+            stageImage2.color = currentStage >= 2 ? Color.yellow : Color.white;
+            stageImage3.color = currentStage >= 3 ? Color.yellow : Color.white;
+            stageImage4.color = currentStage >= 4 ? Color.yellow : Color.white;
+            stageImageBoss.color = currentStage == 5 ? Color.yellow : Color.white;
         }
     } 
 }

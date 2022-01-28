@@ -17,8 +17,10 @@ namespace KnifeSniper.Architecture
         private ShieldMovementController shieldMovementController;
         private KnifeThrower knifeThrower;
         private ScoreSystem scoreSystem;
+        private LevelSystem levelSystem;
 
         public GameState(
+            LevelSystem levelSystem,
             ScoreSystem scoreSystem,
             KnifeThrower knifeThrower, 
             ShieldMovementController shieldMovementController, 
@@ -27,6 +29,7 @@ namespace KnifeSniper.Architecture
             GameView gameView
             )
         {
+            this.levelSystem = levelSystem;
             this.scoreSystem = scoreSystem;
             this.inputSystem = inputSystem;
             this.gameView = gameView;
@@ -45,6 +48,7 @@ namespace KnifeSniper.Architecture
             CreateNewShield();
             CreateNewKnife();
             gameView.SetScoreText(scoreSystem.GetScore());
+            gameView.SetCurrentLevelUI(levelSystem.GetCurrentLevel(), levelSystem.GetCurrentStage());
             inputSystem.AddListener(knifeThrower.Throw);
         }
 
@@ -60,12 +64,16 @@ namespace KnifeSniper.Architecture
                 gameView.HideView();
 
             inputSystem.RemoveAllListeners();
+            levelSystem.ResetLevelValues();
         }
 
         private void CreateNewShield()
         {
             var startShield = levelGenerator.SpawnShield();
             shieldMovementController.InitializeShield(startShield, OnShieldHit, CreateNewShield);
+
+            levelSystem.NextLevel();
+            gameView.SetCurrentLevelUI(levelSystem.GetCurrentLevel(), levelSystem.GetCurrentStage());
         }
 
         private void OnShieldHit()
