@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using KnifeSniper.UI;
 using UnityEngine.Events;
+using KnifeSniper.AdditionalSystems;
 
 namespace KnifeSniper.Architecture
 {
     public class MenuState : BaseState
     {
         private MenuView menuView;
+        private ScoreSystem scoreSystem;
+        private LevelSystem levelSystem;
 
         private UnityAction transitionToGameState;
 
-        public MenuState(UnityAction transitionToGameState, MenuView menuView)
+        public MenuState(ScoreSystem scoreSystem, LevelSystem levelSystem, UnityAction transitionToGameState, MenuView menuView)
         {
+            this.scoreSystem = scoreSystem;
+            this.levelSystem = levelSystem;
             this.menuView = menuView;
             this.transitionToGameState = transitionToGameState;
         }
@@ -23,6 +28,7 @@ namespace KnifeSniper.Architecture
             Debug.Log("INIT MENU");
 
             menuView.PlayButton.onClick.AddListener(transitionToGameState);
+            menuView.SetMenuUI(scoreSystem.GetBestScore(), levelSystem.GetBestLevel());
 
             if (menuView != null)
                 menuView.ShowView();
