@@ -15,5 +15,10 @@ namespace KnifeSniper.Generation
         protected float speed;
 
         public abstract void ThrowKnife();
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            rigidBody.gravityScale = 2;
+        }
     } 
 }
