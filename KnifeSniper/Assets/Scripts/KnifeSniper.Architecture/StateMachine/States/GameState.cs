@@ -126,6 +126,7 @@ namespace KnifeSniper.Architecture
 
         private void GameOver()
         {
+            levelGenerator.DespawnKnife();
             newShield.Dispose();
             gameView.HideView();
             loseView.SetText(scoreSystem.GetScore(), levelSystem.GetCurrentLevel());

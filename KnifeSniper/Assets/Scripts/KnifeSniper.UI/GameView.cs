@@ -46,7 +46,8 @@ namespace KnifeSniper.UI
 
         public void SetCurrentLevelUI(int currentLevel, int currentStage)
         {
-            levelText.text = currentLevel.ToString();
+            levelText.text = currentStage < 5 ? $"STAGE {currentLevel}" : "BOSS FIGHT";
+            levelText.color = currentStage < 5 ? Color.white : Color.red;
 
             stageImage1.color = Color.yellow;
             stageImage2.color = currentStage >= 2 ? Color.yellow : Color.white;
