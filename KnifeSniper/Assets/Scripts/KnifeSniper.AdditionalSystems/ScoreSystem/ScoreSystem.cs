@@ -24,5 +24,10 @@ namespace KnifeSniper.AdditionalSystems
         {
             return bestScore;
         }
+
+        public void ResetScore()
+        {
+            score = 0;
+        }
     } 
 }

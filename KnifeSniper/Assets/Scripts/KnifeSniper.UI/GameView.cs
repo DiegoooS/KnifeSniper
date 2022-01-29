@@ -38,8 +38,6 @@ namespace KnifeSniper.UI
         {
             levelText.text = currentLevel.ToString();
 
-            Debug.Log(currentStage);
-
             stageImage1.color = Color.yellow;
             stageImage2.color = currentStage >= 2 ? Color.yellow : Color.white;
             stageImage3.color = currentStage >= 3 ? Color.yellow : Color.white;

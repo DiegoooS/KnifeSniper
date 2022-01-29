@@ -28,7 +28,7 @@ namespace KnifeSniper.Architecture
             Debug.Log("INIT MENU");
 
             menuView.PlayButton.onClick.AddListener(transitionToGameState);
-            menuView.SetMenuUI(scoreSystem.GetBestScore(), levelSystem.GetBestLevel());
+            menuView.SetMenuUI(levelSystem.GetBestLevel(), scoreSystem.GetBestScore());
 
             if (menuView != null)
                 menuView.ShowView();

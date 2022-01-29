@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace KnifeSniper.Generation
 {
@@ -9,16 +10,25 @@ namespace KnifeSniper.Generation
         [SerializeField]
         protected Rigidbody2D rigidBody;
 
+        private UnityAction onKnifeHitCallback;
+
         public Rigidbody2D RigidBody => rigidBody;
 
         [SerializeField]
         protected float speed;
+
+        public virtual void Initialize(UnityAction onKnifeHitCallback)
+        {
+            this.onKnifeHitCallback = onKnifeHitCallback;
+        }
 
         public abstract void ThrowKnife();
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
             rigidBody.gravityScale = 2;
+
+            onKnifeHitCallback.Invoke();
         }
     } 
 }

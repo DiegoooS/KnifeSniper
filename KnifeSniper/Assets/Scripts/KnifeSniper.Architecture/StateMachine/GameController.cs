@@ -17,8 +17,10 @@ namespace KnifeSniper.Architecture
         private MenuView menuView;
         [SerializeField]
         private GameView gameView;
+        [SerializeField]
+        private LoseView loseView;
 
-        // STATES
+        // STATES 
         private MenuState menuState;
         private GameState gameState;
 
@@ -34,6 +36,7 @@ namespace KnifeSniper.Architecture
         private LevelGenerator levelGenerator;
 
         private UnityAction transitionToGameState;
+        private UnityAction transitionToMenuState;
 
         private void Start()
         {
@@ -68,12 +71,13 @@ namespace KnifeSniper.Architecture
         private void CreateStates()
         {
             menuState = new MenuState(scoreSystem, levelSystem, transitionToGameState, menuView);
-            gameState = new GameState(levelSystem, scoreSystem, knifeThrower, shieldMovementController, levelGenerator, inputSystem, gameView);
+            gameState = new GameState(transitionToMenuState, levelSystem, scoreSystem, knifeThrower, shieldMovementController, levelGenerator, inputSystem, gameView, loseView);
         }
 
         private void CreateTransitions()
         {
             transitionToGameState = () => ChangeState(gameState);
+            transitionToMenuState = () => ChangeState(menuState);
         }
 
         private void CreateShieldMovement()
