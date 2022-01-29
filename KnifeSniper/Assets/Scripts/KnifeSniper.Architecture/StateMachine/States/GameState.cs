@@ -7,6 +7,7 @@ using KnifeSniper.Generation;
 using KnifeSniper.CoreGameplay;
 using KnifeSniper.AdditionalSystems;
 using UnityEngine.Events;
+using DG.Tweening;
 
 namespace KnifeSniper.Architecture
 {
@@ -119,18 +120,29 @@ namespace KnifeSniper.Architecture
         {
             var newKnife = levelGenerator.SpawnKnife();
 
-            newKnife.Initialize(GameOver);
+            newKnife.Initialize(() =>  GameOver(newKnife));
 
             knifeThrower.SetKnife(newKnife); 
         }
 
-        private void GameOver()
+        private void GameOver(BaseKnife lastKnife)
         {
-            levelGenerator.DespawnKnife();
-            newShield.Dispose();
-            gameView.HideView();
+            lastKnife.RigidBody.gravityScale = 5f;
+            lastKnife.RigidBody.AddTorque(360f, ForceMode2D.Force);
+            lastKnife.GetComponent<PolygonCollider2D>().enabled = false;
+
+            var loseSequence = DOTween.Sequence();
+            loseSequence
+                .SetDelay(0.7f)
+                .OnComplete(() =>
+                {
+                    loseView.ShowView();
+                    newShield.Dispose();
+                    gameView.HideView();
+                });
+
             loseView.SetText(scoreSystem.GetScore(), levelSystem.GetCurrentLevel());
-            loseView.ShowView();
+            
         }
     } 
 }

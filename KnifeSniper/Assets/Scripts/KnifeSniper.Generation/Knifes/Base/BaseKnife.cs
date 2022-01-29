@@ -26,7 +26,7 @@ namespace KnifeSniper.Generation
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
             onKnifeHitCallback.Invoke();
         }
     } 

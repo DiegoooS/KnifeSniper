@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace KnifeSniper.UI
 {
@@ -12,12 +13,13 @@ namespace KnifeSniper.UI
 
         public void MarkAsUnlocked()
         {
+           
             image.color = Color.white;
         }
         
         public void MarkAsLocked()
         {
-            image.color = Color.black;
+            image.DOColor(Color.black, 0.3f);
         }
     } 
 }

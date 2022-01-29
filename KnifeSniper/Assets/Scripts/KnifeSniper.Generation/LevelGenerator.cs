@@ -66,11 +66,5 @@ namespace KnifeSniper.Generation
 
             return knifeObj;
         }
-
-        public void DespawnKnife()
-        {
-            if (knifeRoot.transform.GetChild(1) != null)
-                Destroy(knifeRoot.transform.GetChild(1).gameObject);
-        }
     } 
 }
