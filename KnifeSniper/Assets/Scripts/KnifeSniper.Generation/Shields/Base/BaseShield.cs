@@ -10,6 +10,9 @@ namespace KnifeSniper.Generation
         [SerializeField]
         protected ShieldMovementStep[] shieldMovementStep;
 
+        [SerializeField]
+        protected SpriteRenderer spriteRenderer;
+
         private UnityAction onShieldHit;
         private UnityAction onWin;
 
@@ -55,8 +58,7 @@ namespace KnifeSniper.Generation
             if (knifesToWin == knifesInShield.Count)
             {
                 onWin.Invoke();
-            }
-            
+            }    
         }
     } 
 }

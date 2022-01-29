@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 187382605244584705}
   - component: {fileID: -3508662977784572134}
   - component: {fileID: 8443637464454941456}
-  - component: {fileID: 2687081335337018527}
+  - component: {fileID: 5941557395826136231}
   m_Layer: 0
   m_Name: Knife
   m_TagString: Untagged
@@ -120,7 +120,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &2687081335337018527
+--- !u!60 &5941557395826136231
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

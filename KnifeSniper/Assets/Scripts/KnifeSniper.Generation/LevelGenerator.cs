@@ -40,12 +40,12 @@ namespace KnifeSniper.Generation
 
             if (currentStage < 5)
             {
-                var randomIndexSimple = Random.Range(0, simpleShields.Length - 1);
+                var randomIndexSimple = Random.Range(0, simpleShields.Length );
                 shieldToSpawn = simpleShields[randomIndexSimple];
             }
             else
             {
-                var randomIndexBoss = Random.Range(0, bossShields.Length - 1);
+                var randomIndexBoss = Random.Range(0, bossShields.Length );
                 shieldToSpawn = bossShields[randomIndexBoss];
             }
 

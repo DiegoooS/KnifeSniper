@@ -101,6 +101,7 @@ MonoBehaviour:
     time: 2
   - angle: -60
     time: 1
+  spriteRenderer: {fileID: 3231467209359136207}
   knifesToWin: 10
 --- !u!58 &1533407812149435353
 CircleCollider2D:
