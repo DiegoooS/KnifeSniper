@@ -29,6 +29,16 @@ namespace KnifeSniper.UI
         [SerializeField]
         private Image stageImageBoss;
 
+        [SerializeField]
+        private KnifeAmmoElement knifeAmmoElementPrefab;
+
+        [SerializeField]
+        private RectTransform knifeElementContent;
+
+        private List<KnifeAmmoElement> spawnedElements = new List<KnifeAmmoElement>();
+
+        private int knifeToDelete;
+
         public void SetScoreText(int currentScore)
         {
             scoreText.text = currentScore.ToString();
@@ -43,6 +53,36 @@ namespace KnifeSniper.UI
             stageImage3.color = currentStage >= 3 ? Color.yellow : Color.white;
             stageImage4.color = currentStage >= 4 ? Color.yellow : Color.white;
             stageImageBoss.color = currentStage == 5 ? Color.yellow : Color.white;
+        }
+
+        public void SpawnAmmo(int amount)
+        {
+            DespawnKnives();
+
+            for (int i = 0; i < amount; i++)
+            {
+                var newKnife = Instantiate(knifeAmmoElementPrefab, knifeElementContent);
+                spawnedElements.Add(newKnife);
+                newKnife.MarkAsUnlocked();
+            }
+
+            knifeToDelete = -1;
+        }
+
+        private void DespawnKnives()
+        {
+            for (int i = spawnedElements.Count - 1; i >= 0; i--)
+            {
+                Destroy(spawnedElements[i].gameObject);
+            }
+
+            spawnedElements.Clear();
+        }
+
+        public void DecreaseAmmo()
+        {
+            knifeToDelete++;
+            spawnedElements[knifeToDelete].MarkAsLocked();
         }
     } 
 }

@@ -101,18 +101,18 @@ namespace KnifeSniper.Architecture
 
         private void CreateNewShield()
         {
-            newShield = levelGenerator.SpawnShield();
-            shieldMovementController.InitializeShield(newShield, OnShieldHit, CreateNewShield);
+            UnityAction onShieldHit = gameView.DecreaseAmmo;
+            onShieldHit += CreateNewKnife;
+            onShieldHit += scoreSystem.AddScore;
+            onShieldHit += () => gameView.SetScoreText(scoreSystem.GetScore());
 
             levelSystem.NextLevel();
-            gameView.SetCurrentLevelUI(levelSystem.GetCurrentLevel(), levelSystem.GetCurrentStage());
-        }
 
-        private void OnShieldHit()
-        {
-            CreateNewKnife();
-            scoreSystem.AddScore();
-            gameView.SetScoreText(scoreSystem.GetScore());
+            newShield = levelGenerator.SpawnShield(levelSystem.GetCurrentStage());
+            shieldMovementController.InitializeShield(newShield, onShieldHit, CreateNewShield);
+    
+            gameView.SetCurrentLevelUI(levelSystem.GetCurrentLevel(), levelSystem.GetCurrentStage());
+            gameView.SpawnAmmo(newShield.KnifesToWin);
         }
 
         private void CreateNewKnife()
@@ -121,7 +121,7 @@ namespace KnifeSniper.Architecture
 
             newKnife.Initialize(GameOver);
 
-            knifeThrower.SetKnife(newKnife);
+            knifeThrower.SetKnife(newKnife); 
         }
 
         private void GameOver()

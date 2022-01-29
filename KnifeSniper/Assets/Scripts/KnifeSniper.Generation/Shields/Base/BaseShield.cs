@@ -15,6 +15,7 @@ namespace KnifeSniper.Generation
 
         [SerializeField]
         private int knifesToWin;
+        public int KnifesToWin => knifesToWin;
 
         private List<BaseKnife> knifesInShield = new List<BaseKnife>();
 
@@ -46,7 +47,7 @@ namespace KnifeSniper.Generation
             var knife = collision.GetComponentInParent<BaseKnife>();
             knife.RigidBody.velocity = Vector2.zero;
             knife.RigidBody.isKinematic = true;
-            knife.transform.position = new Vector3(0f, -1f, 0f);
+            knife.transform.position = new Vector3(0f, -1.3f, 0f);
             knife.transform.SetParent(this.transform);
             knifesInShield.Add(knife);
             

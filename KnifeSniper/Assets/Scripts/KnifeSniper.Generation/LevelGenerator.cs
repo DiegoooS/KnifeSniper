@@ -16,6 +16,7 @@ namespace KnifeSniper.Generation
         [SerializeField]
         private BaseKnife knifePrefab;
 
+
         [Header("Shields")]
         [SerializeField]
         private Transform shieldPos;  
@@ -24,16 +25,37 @@ namespace KnifeSniper.Generation
         private BaseShield shieldPrefab;
 
         [SerializeField]
+        private BaseShield[] simpleShields;
+
+        [SerializeField]
+        private BaseShield[] bossShields;
+
+        [SerializeField]
         private Transform shieldRoot;
 
         
-        public BaseShield SpawnShield()
+        public BaseShield SpawnShield(int currentStage)
         {
-            var shieldObj = Instantiate(shieldPrefab, shieldPos.position, shieldPos.rotation);
+            BaseShield shieldToSpawn = default;
 
-            shieldObj.transform.SetParent(shieldRoot);
+            if (currentStage < 5)
+            {
+                var randomIndexSimple = Random.Range(0, simpleShields.Length - 1);
+                shieldToSpawn = simpleShields[randomIndexSimple];
+            }
+            else
+            {
+                var randomIndexBoss = Random.Range(0, bossShields.Length - 1);
+                shieldToSpawn = bossShields[randomIndexBoss];
+            }
 
-            return shieldObj;
+            Debug.Log(currentStage);
+
+            shieldToSpawn = Instantiate(shieldToSpawn, shieldPos.position, shieldPos.rotation);
+
+            shieldToSpawn.transform.SetParent(shieldRoot);
+
+            return shieldToSpawn;
         }
 
         public BaseKnife SpawnKnife()

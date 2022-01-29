@@ -26,8 +26,8 @@ namespace KnifeSniper.Generation
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            rigidBody.gravityScale = 2;
 
+            Destroy(this.gameObject);
             onKnifeHitCallback.Invoke();
         }
     } 
