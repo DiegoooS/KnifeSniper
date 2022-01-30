@@ -4,6 +4,7 @@ using UnityEngine;
 using KnifeSniper.UI;
 using UnityEngine.Events;
 using KnifeSniper.AdditionalSystems;
+using KnifeSniper.Data;
 
 namespace KnifeSniper.Architecture
 {
@@ -12,11 +13,13 @@ namespace KnifeSniper.Architecture
         private MenuView menuView;
         private ScoreSystem scoreSystem;
         private LevelSystem levelSystem;
+        private SaveSystem saveSystem;
 
         private UnityAction transitionToGameState;
 
-        public MenuState(ScoreSystem scoreSystem, LevelSystem levelSystem, UnityAction transitionToGameState, MenuView menuView)
+        public MenuState(SaveSystem saveSystem, ScoreSystem scoreSystem, LevelSystem levelSystem, UnityAction transitionToGameState, MenuView menuView)
         {
+            this.saveSystem = saveSystem;
             this.scoreSystem = scoreSystem;
             this.levelSystem = levelSystem;
             this.menuView = menuView;
@@ -28,7 +31,7 @@ namespace KnifeSniper.Architecture
             Debug.Log("INIT MENU");
 
             menuView.PlayButton.onClick.AddListener(transitionToGameState);
-            menuView.SetMenuUI(levelSystem.GetBestLevel(), scoreSystem.GetBestScore());
+            menuView.SetMenuUI(saveSystem.Data.stage, saveSystem.Data.score);
 
             if (menuView != null)
                 menuView.ShowView();

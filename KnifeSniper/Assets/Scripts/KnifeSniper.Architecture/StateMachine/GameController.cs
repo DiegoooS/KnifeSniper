@@ -74,8 +74,8 @@ namespace KnifeSniper.Architecture
 
         private void CreateStates()
         {
-            menuState = new MenuState(scoreSystem, levelSystem, transitionToGameState, menuView);
-            gameState = new GameState(transitionToMenuState, levelSystem, scoreSystem, knifeThrower, shieldMovementController, levelGenerator, inputSystem, gameView, loseView);
+            menuState = new MenuState(saveSystem, scoreSystem, levelSystem, transitionToGameState, menuView);
+            gameState = new GameState(saveSystem, transitionToMenuState, levelSystem, scoreSystem, knifeThrower, shieldMovementController, levelGenerator, inputSystem, gameView, loseView);
         }
 
         private void CreateTransitions()

@@ -7,6 +7,7 @@ using KnifeSniper.Generation;
 using KnifeSniper.CoreGameplay;
 using KnifeSniper.AdditionalSystems;
 using UnityEngine.Events;
+using KnifeSniper.Data;
 using DG.Tweening;
 
 namespace KnifeSniper.Architecture
@@ -22,10 +23,12 @@ namespace KnifeSniper.Architecture
         private KnifeThrower knifeThrower;
         private ScoreSystem scoreSystem;
         private LevelSystem levelSystem;
+        private SaveSystem saveSystem;
 
         private BaseShield newShield;
 
         public GameState(
+            SaveSystem saveSystem,
             UnityAction transitionToMenuState,
             LevelSystem levelSystem,
             ScoreSystem scoreSystem,
@@ -37,6 +40,7 @@ namespace KnifeSniper.Architecture
             LoseView loseView
             )
         {
+            this.saveSystem = saveSystem;
             this.transitionToMenuState = transitionToMenuState;
             this.levelSystem = levelSystem;
             this.scoreSystem = scoreSystem;
@@ -130,6 +134,7 @@ namespace KnifeSniper.Architecture
             lastKnife.RigidBody.gravityScale = 5f;
             lastKnife.RigidBody.AddTorque(360f, ForceMode2D.Force);
             lastKnife.GetComponent<PolygonCollider2D>().enabled = false;
+            saveSystem.SaveGame(levelSystem.GetBestLevel(), scoreSystem.GetBestScore());
 
             var loseSequence = DOTween.Sequence();
             loseSequence
@@ -139,7 +144,7 @@ namespace KnifeSniper.Architecture
                     loseView.ShowView();
                     newShield.Dispose();
                     gameView.HideView();
-                    lastKnife.DestroyKnife();
+                    lastKnife.DestroyKnife();     
                 });
 
             loseView.SetText(scoreSystem.GetScore(), levelSystem.GetCurrentLevel());
