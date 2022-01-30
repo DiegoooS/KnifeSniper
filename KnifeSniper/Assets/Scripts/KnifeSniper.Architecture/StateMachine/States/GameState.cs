@@ -139,6 +139,7 @@ namespace KnifeSniper.Architecture
                     loseView.ShowView();
                     newShield.Dispose();
                     gameView.HideView();
+                    lastKnife.DestroyKnife();
                 });
 
             loseView.SetText(scoreSystem.GetScore(), levelSystem.GetCurrentLevel());

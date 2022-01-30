@@ -7,6 +7,7 @@ using KnifeSniper.Input;
 using KnifeSniper.Generation;
 using KnifeSniper.CoreGameplay;
 using KnifeSniper.AdditionalSystems;
+using KnifeSniper.Data;
 
 namespace KnifeSniper.Architecture
 {
@@ -31,6 +32,7 @@ namespace KnifeSniper.Architecture
         private KnifeThrower knifeThrower;
         private ScoreSystem scoreSystem;
         private LevelSystem levelSystem;
+        private SaveSystem saveSystem;
 
         [SerializeField]
         private LevelGenerator levelGenerator;
@@ -41,13 +43,15 @@ namespace KnifeSniper.Architecture
         private void Start()
         {
             inputSystem = new InputSystem();
-    
+
+            CreateSaveSystem();
             CreateTransitions();
             CreateShieldMovement();
             CreateKnifeThrower();
             CreateAdditionalSystems();
             CreateStates();
 
+            saveSystem.LoadGame();
             ChangeState(menuState);
         }
 
@@ -94,6 +98,11 @@ namespace KnifeSniper.Architecture
         {
             scoreSystem = new ScoreSystem();
             levelSystem = new LevelSystem();
+        }
+
+        private void CreateSaveSystem()
+        {
+            saveSystem = new SaveSystem();
         }
     } 
 }
